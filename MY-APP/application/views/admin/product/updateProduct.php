@@ -18,7 +18,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="image/logo.png" alt="">
+                <img src="../../../public/access/image/logo.png" alt="">
             </div>
 
             <span class="logo_name">Admin</span>
@@ -72,7 +72,7 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <img src="image/profile.jpg" alt="">
+            <img src="../../../public/access/image/profile.jpg" alt="">
         </div>
 
         <div class="dash-content">
@@ -122,22 +122,22 @@
                 <li>
                     <label for="cg">category</label>
                     <br>
-                    <input type="text " placeholder="category" name="cg" id="cg" value="<?php echo $value['category']   ?>">
+                    <input type="text " placeholder="category" name="category" id="cg" value="<?php echo $value['category']   ?>">
                 </li>
                 <li>
                     <label for="cis">countInStock</label>
                     <br>
-                    <input type="text" placeholder="count In Stock" name="cis" id="cis" value="<?php echo $value['countInStock']   ?>">
+                    <input type="text" placeholder="count In Stock" name="countInStock" id="cis" value="<?php echo $value['countInStock']   ?>">
                 </li>
                 <li>
                     <label for="pc">price</label>
                     <br>
-                    <input type="text " placeholder="price" name="pc" id="pc" value="<?php echo $value['price']   ?>">
+                    <input type="text " placeholder="price" name="price" id="pc" value="<?php echo $value['price']   ?>">
                 </li>
                 <li>
                     <label for="img">image</label>
                     <br>
-                    <input type="text" placeholder="image" name="img" id="img" value="<?php echo $value['image']   ?>">
+                    <input type="text" placeholder="image" name="image" id="img" value="<?php echo $value['image']   ?>">
                 </li>
                 <li>
                     <center>

@@ -21,7 +21,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="image/logo.png" alt="">
+                <img src="../../../public/access/image/logo.png" alt="">
             </div>
 
             <span class="logo_name">Admin</span>
@@ -75,7 +75,7 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <img src="image/profile.jpg" alt="">
+            <img src="../../../public/access/image/profile.jpg" alt="">
         </div>
 
         <div class="dash-content">
@@ -139,13 +139,21 @@
        
 $stt = 1;
 ?>
-      <?php foreach($info as $value):?>
+      <?php foreach($info as $value):
+      
+       
+        ?>
+        
 <tr>
       <th scope="row"><?php echo $stt++   ?></th>
       <td><?php echo $value['username']   ?></td>
       <td><?php echo $value['email']   ?></td>
       <td><?php echo $value['phone']   ?></td>
-      <td><?php echo $value['date']   ?></td>
+      <td><?php 
+      $fr_date =$date=date_create($value['date'] );
+      echo date_format($fr_date,"d/m/Y");
+      ?>
+      </td>
       <td><?php echo $value['password']   ?></td>
       
       <td><a href="delateUser/<?php echo $value['id']?>">delete</a></td>

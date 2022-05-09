@@ -18,76 +18,52 @@ class userController extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+	function __construct() {
+		parent::__construct();
+		$this->load->model('userModel');
+		$this->load->helper('user_helper');
+	}
 	public function viewUser()
 	{
-$this->load->model('userModel');
+
 $data['info']= $this->userModel->getuser()->result_array();
 
 		$this->load->view('admin/user/index.php',$data);
 	}
 	public function addUser(){
        $this->load->view('admin/user/addUser.php');
-	   $username = $this->input->post('username');
-	   $email = $this->input->post('email');
-	   $phone = $this->input->post('phone');
-	   $date = $this->input->post('date');
-	   $password = $this->input->post('password');
-       $ojb = new stdClass;
-       $ojb->username = $username;
-       $ojb->email = $email;
-       $ojb->phone = $phone;
-       $ojb->date = $date;
-       $ojb->password = $password;
+	   $data_request = $this->input->post(); 
+	   
 	   if(isset($_POST['add'])){
-
-           $this->load->helper('user_helper');
-        $res =   validateUser($ojb);
+		   extract($data_request);
+        $res =   validateUser($data_request);
         if(!$res->success){
             echo "<script type ='text/JavaScript'>";  
-	    echo "alert(' $res->messages')";  
+	    echo "alert('$res->messages')";  
 	  echo "</script>";
-      return;
         }else{
 	   $ojb =array('username'=>$username,'email'=>$email,'phone'=>$phone,'date'=>$date,'password'=>$password);
-	       $this->load->model('userModel');
 	  $this->userModel->addUser($ojb);
         }
-  
-
 	   }
 	  
 	  
     }
 	public function updateUser($id){
-		$this->load->model('userModel');
 		$data['info'] = $this->userModel->getById($id)->result_array();
 		$this->load->view('admin/user/updateUser.php',$data);
-
-
-
 	}
-	public function delateUser($id){
-		$this->load->model('userModel');
-		$this->userModel->deleteById($id);
 
+	public function delateUser($id){
+		$this->userModel->deleteById($id);
 	}
 
 	public function updateUserById(){
-	$id = $this->input->post('id');
-    $username = $this->input->post('username');
-    $email = $this->input->post('email');
-    $phone = $this->input->post('phone');
-    $date = $this->input->post('date');
-    $password = $this->input->post('password');
-    $ojb = new stdClass;
-    $ojb->username = $username;
-    $ojb->email = $email;
-    $ojb->phone = $phone;
-    $ojb->date = $date;
-    $ojb->password = $password;
+		$data_request = $this->input->post();
+		extract($data_request);
+	
 		if(isset($_POST['update'])){
-            $this->load->helper('user_helper');
-            $res =   validateUser($ojb);
+            $res =   validateUser($data_request);
             if(!$res->success){
                 echo "<script type ='text/JavaScript'>";  
             echo "alert(' $res->messages')";  
@@ -95,8 +71,6 @@ $data['info']= $this->userModel->getuser()->result_array();
           
             }else{
            $ojb =array('username'=>$username,'email'=>$email,'phone'=>$phone,'date'=>$date,'password'=>$password);
-           
-           $this->load->model('userModel');
           $this->userModel->updateById($id,$ojb);
             }
 	

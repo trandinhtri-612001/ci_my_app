@@ -3,6 +3,11 @@
 <?php
 class userModel extends CI_Model
 {
+    function __construct() {
+		parent::__construct();
+		
+	}
+    
     public function addUser($data)
     {
   $this->db->insert('users',$data);

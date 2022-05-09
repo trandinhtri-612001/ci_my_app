@@ -17,7 +17,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="image/logo.png" alt="">
+                <img src="../../../public/access/image/logo.png" alt="">
             </div>
             <span class="logo_name">Admin</span>
         </div>
@@ -66,7 +66,7 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <img src="image/profile.jpg" alt="">
+            <img src="../../../public/access/image/profile.jpg" alt="">
         </div>
         <div class="dash-content">
             <div class="overview">
@@ -108,22 +108,22 @@
                 <li>
                     <label for="cg">category</label>
                     <br>
-                    <input type="text " placeholder="category" name="cg" id="cg">
+                    <input type="text " placeholder="category" name="category" id="cg">
                 </li>
                 <li>
                     <label for="cis">countInStock</label>
                     <br>
-                    <input type="text" placeholder="count In Stock" name="cis" id="cis">
+                    <input type="text" placeholder="count In Stock" name="countInStock" id="cis">
                 </li>
                 <li>
                     <label for="pc">price</label>
                     <br>
-                    <input type="text " placeholder="price" name="pc" id="pc">
+                    <input type="text " placeholder="price" name="price" id="pc">
                 </li>
                 <li>
                     <label for="img">image</label>
                     <br>
-                    <input type="file" placeholder="image" name="img" class="image" id="img">
+                    <input type="file" placeholder="image" name="image" class="image" id="img">
                 </li>
                 <li>
                     <center>

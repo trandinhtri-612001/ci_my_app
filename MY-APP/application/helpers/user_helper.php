@@ -6,11 +6,7 @@ if (!function_exists('validateUser'))
 {
     function validateUser($params)
     {
-       $username = $params->username ;
-         $email =$params->email;
-        $phone =$params->phone ;
-        $date = $params->date;
-        $password= $params->password ;
+        extract($params);
         $anou = new stdClass;
         $checkUsername = '/^\w{5,}$/';
         $checkEmail = '/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix';

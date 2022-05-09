@@ -21,7 +21,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="image/logo.png" alt="">
+                <img src="../../../public/access/image/logo.png" alt="">
             </div>
 
             <span class="logo_name">Admin</span>
@@ -75,7 +75,7 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <img src="image/profile.jpg" alt="">
+            <img src="../../../public/access/image/profile.jpg" alt="">
         </div>
 
         <div class="dash-content">

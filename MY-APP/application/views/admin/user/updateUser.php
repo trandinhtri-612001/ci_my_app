@@ -11,7 +11,7 @@
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Admin Dashboard </title> 
 </head>
 <body>
@@ -108,7 +108,7 @@
                     <span class="text">update user</span>
                 </div>
                 <?php foreach($info as $value): ?>
-  <form action="<?= base_url()?>userController/updateUserById" method="post">
+  <form >
   
             <ul>
             <li>
@@ -141,9 +141,9 @@
                     <input type="text" value="<?= $value['password']   ?>" placeholder="password" name="password" class="password" id="password">
                 </li>
                 <li>
-                    <center>
-                        <input class="ip-sub" name='update' type="submit" value="update user">
-                    </center>
+                <center>
+             <button id="btn_update" type="button">update user</button>
+        </center>
                 
                 </li>
             </ul>
@@ -152,7 +152,55 @@
             </div>
         </div>
     </section>
+                            <script>
+                        
+                            
+                        
+                        const submit = $("#btn_update");
 
+
+                            
+                        submit.click(function(){
+                            
+                            let id =  $("#id").val();
+                        let username = $("#username").val();
+                        let email = $("#email").val();
+                        let phone = $("#phone").val();
+                        let date = $("#date").val();
+                        let password = $("#password").val();
+
+                        let dataOjb = {
+                                   id,
+                                username,
+                                email,
+                                phone,
+                                date,
+                                password
+                            };
+                        $.post('<?=base_url()?>/userController/updateUserById',
+                        dataOjb,
+                        function(data, status){
+                        console.log(data)
+                        const resData = JSON.parse(data)
+                        if(resData.success){
+                        console.log(resData)
+                        alert(resData.messages);
+                        const url ="<?= base_url()?>userController/viewUser";
+                            $(location).attr('href',url);
+                            
+
+                        }else{
+                        console.log(resData)
+                        alert(resData.messages);
+                        }
+                        });
+                        });
+                        
+
+
+
+
+                        </script>
   <style>
       /* ===== Google Font Import - Poppins ===== */
 

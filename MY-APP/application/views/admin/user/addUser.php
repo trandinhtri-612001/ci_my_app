@@ -11,9 +11,12 @@
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     <title>Admin Dashboard </title> 
 </head>
 <body>
+    
     <nav>
         <div class="logo-name">
             <div class="logo-image">
@@ -96,45 +99,99 @@
                     <i class="uil uil-clock-three"></i>
                     <span class="text">add user</span>
                 </div>
-  <form action="addUser" method="post">
+  <form action="" method="">
             <ul>
                 <li>
                     <label for="username">username</label>
                     <br>
-                    <input type="text " placeholder="username" name="username" id="username">
+                    <input type="text "   placeholder="username" name="username" id="username">
                 </li>
                 <li>
                     <label for="email">email</label>
                     <br>
-                    <input type="email " placeholder="email" name="email" id="email">
+                    <input type="email "  placeholder="email" name="email" id="email">
                 </li>
                 <li>
                     <label for="phone">phone</label>
                     <br>
-                    <input type="text" placeholder="phone" name="phone" id="phone">
+                    <input type="text"  placeholder="phone" name="phone" id="phone">
                 </li>
                 <li>
                     <label for="date">date</label>
                     <br>
-                    <input type="date" placeholder="date" name="date" id="date">
+                    <input type="date"  placeholder="date" name="date" id="date">
                 </li>
                 <li>
                     <label for="password">password</label>
                     <br>
-                    <input type="text" placeholder="password" name="password" class="password" id="password">
+                    <input type="text"  placeholder="password" name="password" class="password" id="password">
                 </li>
-                <li>
-                    <center>
-                        <input class="ip-sub" name='add' type="submit" value="add user">
-                    </center>
-                
-                </li>
+                <center>
+             <button id="btn" type="button">add user</button>
+        </center>
             </ul>
         </form>
+        
+       
+
+
+
+        <!-- script -->
+                <script>
+
+
+
+                const submit = $("#btn");
+
+
+
+                submit.click(function(){
+                let username = $("#username").val();
+                let email = $("#email").val();
+                let phone = $("#phone").val();
+                let date = $("#date").val();
+                let password = $("#password").val();
+
+                let dataOjb = {
+                username,
+                email,
+                phone,
+                date,
+                password
+                };
+                $.post('<?=base_url()?>/userController/addUser',
+                dataOjb,
+                function(data, status){
+                console.log(data)
+                const resData = JSON.parse(data)
+                if(resData.success){
+                console.log(resData)
+                alert(resData.messages);
+                const url ="<?= base_url()?>userController/viewUser";
+                $(location).attr('href',url);
+
+
+                }else{
+                console.log(resData)
+                alert(resData.messages);
+                }
+                });
+                });
+
+
+
+
+
+                </script>
+
+
+
+        <!-- end script -->
                 
             </div>
         </div>
     </section>
+   
   <style>
       /* ===== Google Font Import - Poppins ===== */
       ul li{

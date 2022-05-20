@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Admin Dashboard </title> 
 </head>
 <body>
@@ -93,7 +93,7 @@
 
 
 
-?>
+                  ?>
                     <div class="box box1">
                         <i class="uil uil-thumbs-up"></i>
                         <span class="text">Total user</span>
@@ -155,14 +155,45 @@ $stt = 1;
       ?>
       </td>
       <td><?php echo $value['password']   ?></td>
-      
-      <td><a href="delateUser/<?php echo $value['id']?>">delete</a></td>
-      <td><a href="updateUser/<?php echo $value['id']?>">update</a></td>
+      <input type="text" class="input_delete" value="<?php echo $value['id']?>" hidden>
+      <td><a class="btn_delete" href="#">delete</a></td>
+      <td><a   href="updateUser/<?= $value['id'] ?>">update</a></td>
     </tr>
 
       <?php endforeach ?>
 
-
+<script>
+    let btn_delete = document.querySelectorAll(".btn_delete");
+    let input_id = document.querySelectorAll(".input_delete");
+   
+   btn_delete.forEach((item, index)=>{
+item.addEventListener("click",()=>{
+    console.log(input_id[index].value)
+   let ojb ={
+       id:input_id[index].value,
+   };
+   
+    $.post(`<?=base_url()?>/userController/deleteUser`,ojb,
+  function(data, status){
+      console.log(data)
+      const resData = JSON.parse(data)
+  if(resData.success){
+      console.log(resData)
+      alert(resData.messages);
+    const url ="<?= base_url()?>userController/viewUser";
+           $(location).attr('href',url);
+        
+   
+  }else{
+    console.log(resData)
+    alert(resData.messages);
+  }
+  });
+  });
+      
+})
+  
+</script>
     
    
   </tbody>

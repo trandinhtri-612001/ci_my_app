@@ -11,6 +11,7 @@
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Admin Dashboard </title> 
 </head>
 <body>
@@ -108,27 +109,27 @@
                 <li>
                     <label for="cg">category</label>
                     <br>
-                    <input type="text " placeholder="category" name="category" id="cg">
+                    <input type="text " placeholder="category" name="category" id="category">
                 </li>
                 <li>
                     <label for="cis">countInStock</label>
                     <br>
-                    <input type="text" placeholder="count In Stock" name="countInStock" id="cis">
+                    <input type="text" placeholder="count In Stock" name="countInStock" id="countInStock">
                 </li>
                 <li>
                     <label for="pc">price</label>
                     <br>
-                    <input type="text " placeholder="price" name="price" id="pc">
+                    <input type="text " placeholder="price" name="price" id="price">
                 </li>
                 <li>
                     <label for="img">image</label>
                     <br>
-                    <input type="file" placeholder="image" name="image" class="image" id="img">
+                    <input type="file" placeholder="image" name="image" class="image" id="image">
                 </li>
                 <li>
-                    <center>
-                        <input class="ip-sub" name='add' type="submit" value="add Product">
-                    </center>
+                <center>
+             <button id="btn" type="button">add product</button>
+        </center>
                 
                 </li>
             </ul>
@@ -137,6 +138,54 @@
             </div>
         </div>
     </section>
+    <script>
+
+
+
+                const submit = $("#btn");
+
+
+
+                submit.click(function(){
+                let name = $("#name").val();
+                let category = $("#category").val();
+                let countInStock = $("#countInStock").val();
+                let price = $("#price").val();
+                let image = $("#image").val().split('/').pop().split('\\').pop();;
+
+                let dataOjb = {
+                    name,
+                    category,
+                    countInStock,
+                    price,
+                    image
+                };
+                $.post('<?=base_url()?>/productController/addProduct',
+                dataOjb,
+                function(data, status){
+                console.log(data)
+                const resData = JSON.parse(data)
+                if(resData.success){
+                console.log(resData)
+                alert(resData.messages);
+                const url ="<?= base_url()?>productController/viewProduct";
+                $(location).attr('href',url);
+
+
+                }else{
+                console.log(resData)
+                alert(resData.messages);
+                }
+                });
+                });
+
+
+
+
+
+                </script>
+
+
   <style>
       /* ===== Google Font Import - Poppins ===== */
       ul li{

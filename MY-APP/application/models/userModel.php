@@ -10,28 +10,29 @@ class userModel extends CI_Model
     
     public function addUser($data)
     {
-  $this->db->insert('users',$data);
-  redirect('userController/viewUser','refresh');
-        
+      $resData =  $this->db->insert('users',$data);
+      return $resData;
     }
     public function getuser(){
-        $res = $this->db->get('users');
-        return  $res;
+        $resData = $this->db->get('users');
+        return  $resData;
     }
     public function deleteById($id){
         $this->db->where('id',$id);
-        $this->db->delete("users");
-        redirect('userController/viewUser','refresh');
+        $resData = $this->db->delete("users");
+        return $resData;
+
+       
     }
     public function getById($id){
         $this->db->where('id',$id);
-        $res = $this->db->get('users');
-        return $res;
+        $resData = $this->db->get('users');
+        return $resData;
     }
     public function updateById($id,$data){
         $this->db->where('id',$id);
-       $this->db->update('users',$data);
-       redirect('userController/viewUser','refresh');
+      $resData =  $this->db->update('users',$data);
+      return $resData;
     }
 }
 

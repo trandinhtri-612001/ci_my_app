@@ -7,8 +7,8 @@ class productModel extends CI_Model
 	}
     public function addproduct($data)
     {
-  $this->db->insert('product',$data);
-  redirect('productController/viewProduct','refresh');
+ $resData =  $this->db->insert('product',$data);
+return $resData;
         
     }
     public function getProduct(){
@@ -17,8 +17,8 @@ class productModel extends CI_Model
     }
     public function deleteById($id){
         $this->db->where('id',$id);
-        $this->db->delete("product");
-        redirect('productController/viewProduct','refresh');
+        $resData=  $this->db->delete("product");
+        return $resData;
     }
     public function getById($id){
         $this->db->where('id',$id);
@@ -27,8 +27,8 @@ class productModel extends CI_Model
     }
     public function updateById($id,$data){
         $this->db->where('id',$id);
-       $this->db->update('product',$data);
-        redirect('productController/viewProduct','refresh');
+        $resData =  $this->db->update('product',$data);
+        return $resData;
     }
 }
 

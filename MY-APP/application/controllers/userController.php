@@ -22,56 +22,104 @@ class userController extends CI_Controller {
 		parent::__construct();
 		$this->load->model('userModel');
 		$this->load->helper('user_helper');
+		$this->load->helper('response_helper');
+
 	}
 	public function viewUser()
 	{
-
-$data['info']= $this->userModel->getuser()->result_array();
-
+		if(isset($_GET)){
+			 $data['info']= $this->userModel->getuser()->result_array();
 		$this->load->view('admin/user/index.php',$data);
+		}
+        
+	
 	}
+	public function viewAddUser(){
+		if(isset($_GET)){
+			$this->load->view('admin/user/addUser.php');
+		}
+		 
+	}
+
+	
+   
+
+
 	public function addUser(){
-       $this->load->view('admin/user/addUser.php');
-	   $data_request = $this->input->post(); 
+
+	   $data_request = $_POST; 
 	   
-	   if(isset($_POST['add'])){
-		   extract($data_request);
-        $res =   validateUser($data_request);
+	  if(isset($_POST)){
+		    extract($data_request);
+			
+        $res = validateUser($data_request);
         if(!$res->success){
-            echo "<script type ='text/JavaScript'>";  
-	    echo "alert('$res->messages')";  
-	  echo "</script>";
+		 response($res);
+
         }else{
 	   $ojb =array('username'=>$username,'email'=>$email,'phone'=>$phone,'date'=>$date,'password'=>$password);
-	  $this->userModel->addUser($ojb);
+	 $resData =  $this->userModel->addUser($ojb);
+	 if($resData){
+		
+		$ojb =ojbResponse(true,"add user success");
+		response($ojb);
+		
+	 }else{
+		$ojb =ojbResponse(false,"add user do not  success");
+		response($ojb);
+	 }
         }
-	   }
-	  
+	  }
+		 
+	   
 	  
     }
 	public function updateUser($id){
-		$data['info'] = $this->userModel->getById($id)->result_array();
+		if(isset($_GET)){
+			$data['info'] = $this->userModel->getById($id)->result_array();
 		$this->load->view('admin/user/updateUser.php',$data);
+		}
+		
 	}
 
-	public function delateUser($id){
-		$this->userModel->deleteById($id);
+	public function deleteUser(){
+		$data_request = $_POST;
+
+		if(isset($_POST)){
+			extract($data_request);
+			
+		$resData = $this->userModel->deleteById($id);
+		if($resData){
+		
+			$ojb =ojbResponse(true,"delete user success");
+			response($ojb);
+			
+		 }else{
+			$ojb =ojbResponse(false,"delete user do not  success");
+			response($ojb);
+		 }
+		}
 	}
 
 	public function updateUserById(){
-		$data_request = $this->input->post();
+		$data_request = $_POST;
 		extract($data_request);
 	
-		if(isset($_POST['update'])){
+		if(isset($_POST)){
             $res =   validateUser($data_request);
             if(!$res->success){
-                echo "<script type ='text/JavaScript'>";  
-            echo "alert(' $res->messages')";  
-          echo "</script>";
-          
+                response($res);
             }else{
            $ojb =array('username'=>$username,'email'=>$email,'phone'=>$phone,'date'=>$date,'password'=>$password);
-          $this->userModel->updateById($id,$ojb);
+          $resData = $this->userModel->updateById($id,$ojb);
+		  if($resData){
+			$ojb =ojbResponse(true,"update  user success");
+			response($ojb);
+			
+		 }else{
+			$ojb =ojbResponse(false,"update do not user success");
+			response($ojb);
+		 }
             }
 	
 		}

@@ -11,7 +11,7 @@
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Admin Dashboard </title> 
 </head>
 <body>
@@ -108,11 +108,11 @@
                     <span class="text">update product</span>
                 </div>
                 <?php foreach($info as $value): ?>
-  <form action="<?= base_url()?>index.php/productController/updateProductById" method="post">
+  <form >
             <ul>
             <li>
                     
-                    <input type="text "  name="id" id="name" value="<?php echo $value['id']   ?>" hidden>
+                    <input type="text "  name="id" id="id" value="<?php echo $value['id']   ?>" hidden>
                 </li>
                 <li>
                     <label for="name">name</label>
@@ -122,27 +122,27 @@
                 <li>
                     <label for="cg">category</label>
                     <br>
-                    <input type="text " placeholder="category" name="category" id="cg" value="<?php echo $value['category']   ?>">
+                    <input type="text " placeholder="category" name="category" id="category" value="<?php echo $value['category']   ?>">
                 </li>
                 <li>
                     <label for="cis">countInStock</label>
                     <br>
-                    <input type="text" placeholder="count In Stock" name="countInStock" id="cis" value="<?php echo $value['countInStock']   ?>">
+                    <input type="text" placeholder="count In Stock" name="countInStock" id="countInStock" value="<?php echo $value['countInStock']   ?>">
                 </li>
                 <li>
                     <label for="pc">price</label>
                     <br>
-                    <input type="text " placeholder="price" name="price" id="pc" value="<?php echo $value['price']   ?>">
+                    <input type="text " placeholder="price" name="price" id="price" value="<?php echo $value['price']   ?>">
                 </li>
                 <li>
                     <label for="img">image</label>
                     <br>
-                    <input type="text" placeholder="image" name="image" id="img" value="<?php echo $value['image']   ?>">
+                    <input type="text" placeholder="image" name="image" id="image" value="<?php echo $value['image']   ?>">
                 </li>
                 <li>
-                    <center>
-                        <input class="ip-sub" type="submit" name="update" value="update Product" >
-                    </center>
+                <center>
+             <button id="btn" type="button">update product</button>
+        </center>
                 
                 </li>
             </ul>
@@ -151,7 +151,54 @@
             </div>
         </div>
     </section>
+                    <script>
 
+const ip = document.querySelectorAll("input");
+
+
+
+                const submit = $("#btn");
+                submit.click(function(){
+                    let id = $("#id").val();
+                let name = $("#name").val();
+                let category = $("#category").val();
+                let countInStock = $("#countInStock").val();
+                let price = $("#price").val();
+                let image = $("#image").val().split('/').pop().split('\\').pop();;
+
+                let dataOjb = {
+                    id,
+                    name,
+                    category,
+                    countInStock,
+                    price,
+                    image
+                };
+                
+                $.post('<?=base_url()?>/productController/updateProductById',
+                dataOjb,
+                function(data, status){
+               
+                const resData = JSON.parse(data)
+                if(resData.success){
+               
+                alert(resData.messages);
+                const url ="<?= base_url()?>productController/viewProduct";
+                $(location).attr('href',url);
+
+
+                }else{
+               
+                alert(resData.messages);
+                }
+                });
+                });
+
+
+
+
+
+                </script>
   <style>
       /* ===== Google Font Import - Poppins ===== */
 

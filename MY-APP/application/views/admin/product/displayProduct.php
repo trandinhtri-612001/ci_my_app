@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Admin Dashboard </title> 
 </head>
 <body>
@@ -140,6 +140,7 @@ $stt = 1;
 ?>
       <?php foreach($info as $value):?>
 <tr>
+<input type="text" class="input_delete" value="<?php echo $value['id']?>" hidden>
       <th scope="row"><?php echo $stt++   ?></th>
       <td><?php echo $value['name']   ?></td>
       <td><?php echo $value['category']   ?></td>
@@ -147,7 +148,7 @@ $stt = 1;
       <td><?php echo $value['price']   ?></td>
       <td><?php echo $value['image']   ?></td>
       
-      <td><a href="delateProduct/<?php echo $value['id']?>">delete</a></td>
+      <td><a href="#" class="btn_delete">delete</a></td>
       <td><a href="updateProduct/<?php echo $value['id']?>">update</a></td>
     </tr>
 
@@ -162,7 +163,38 @@ $stt = 1;
             </div>
         </div>
     </section>
-
+                <script>
+                            let btn_delete = document.querySelectorAll(".btn_delete");
+                            let input_id = document.querySelectorAll(".input_delete");
+                        console.log(btn_delete)
+                        btn_delete.forEach((item, index)=>{
+                        item.addEventListener("click",()=>{
+                            console.log(input_id[index].value)
+                        let ojb ={
+                            id:input_id[index].value,
+                        };
+                        
+                            $.post(`<?=base_url()?>/productController/deleteProduct`,ojb,
+                        function(data, status){
+                            console.log(data)
+                            const resData = JSON.parse(data)
+                        if(resData.success){
+                            console.log(resData)
+                            alert(resData.messages);
+                            const url ="<?= base_url()?>productController/viewProduct";
+                                $(location).attr('href',url);
+                                
+                        
+                        }else{
+                            console.log(resData)
+                            alert(resData.messages);
+                        }
+                        });
+                        });
+                            
+                        })
+                        
+                        </script>
   
 </body>
 </html>

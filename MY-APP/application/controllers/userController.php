@@ -28,17 +28,29 @@ class userController extends CI_Controller {
 	}
 	public function viewUser()
 	{
-		if(isset($_GET)){
+		try{
+			if(isset($_GET)){
 			 $data['info']= $this->userModel->getuser()->result_array();
 		$this->load->view('admin/user/index.php',$data);
 		}
+		}catch(Exception $err){
+			$ojb =ojbResponse(false,$err->getMessage());
+			response($ojb);
+		}
+		
         
 	
 	}
 	public function viewAddUser(){
-		if(isset($_GET)){
+		try{
+          if(isset($_GET)){
 			$this->load->view('admin/user/addUser.php');
 		}
+		}catch(Exception $err){
+			$ojb =ojbResponse(false,$err->getMessage());
+			response($ojb);
+		}
+		
 		 
 	}
 
@@ -49,8 +61,8 @@ class userController extends CI_Controller {
 	public function addUser(){
 
 	   $data_request = $_POST; 
-	   
-	  if(isset($_POST)){
+	   try{
+		    if(isset($_POST)){
 		    extract($data_request);
 			
         $res = validateUser($data_request);
@@ -72,25 +84,40 @@ class userController extends CI_Controller {
 	 }
         }
 	  }
+	   }catch(Exception $err){
+		$ojb =ojbResponse(false,$err->getMessage());
+		response($ojb);
+	}
+	 
 		 
 	   
 	  
     }
 	public function updateUser($id){
-		if(isset($_GET)){
+		try{
+				if(isset($_GET)){
 			$data['info'] = $this->userModel->getById($id)->result_array();
 		$this->load->view('admin/user/updateUser.php',$data);
 		}
+	}catch(Exception $err){
+		$ojb =ojbResponse(false,$err->getMessage());
+		response($ojb);
+	
 		
 	}
-
+	}
 	public function deleteUser(){
 		$data_request = $_POST;
+try{
 
 		if(isset($_POST)){
 			extract($data_request);
-			
-		$resData = $this->userModel->deleteById($id);
+			$user = $this->userModel->getById($id);
+			if(!$user){
+				$ojb =ojbResponse(true,"delete userdo not  success");
+				response($ojb);	
+			}else{
+			$resData = $this->userModel->deleteById($id);
 		redisDelservice($data_request);
 		if($resData){
 		
@@ -100,14 +127,28 @@ class userController extends CI_Controller {
 		 }else{
 			$ojb =ojbResponse(false,"delete user do not  success");
 			response($ojb);
-		 }
-		}
+		 }	
+			}
+			
+		
+		}	
+}catch(Exception $err){
+	$ojb =ojbResponse(false,$err->getMessage());
+	response($ojb);
+
+	
+}
 	}
 
 	public function updateUserById(){
 		$data_request = $_POST;
-		extract($data_request);
-	
+		try{
+				extract($data_request);
+				$user = $this->userModel->getById($id);
+				if(!$user){
+					$ojb =ojbResponse(true,"delete userdo not  success");
+					response($ojb);	
+				}else{
 		if(isset($_POST)){
             $res =   validateUser($data_request);
             if(!$res->success){
@@ -127,6 +168,14 @@ class userController extends CI_Controller {
             }
 	
 		}
+	}
+		}catch(Exception $err){
+			$ojb =ojbResponse(false,$err->getMessage());
+			response($ojb);
+		
+			
+		}
+	
 		
 		
 

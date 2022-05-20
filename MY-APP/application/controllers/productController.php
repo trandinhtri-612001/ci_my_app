@@ -95,6 +95,11 @@ class productController extends CI_Controller {
 		try{
 			if(isset($_POST)){
 				extract($_POST);
+				$product = $this->productModel->getById($id);
+				if(!$product){
+					$ojb =ojbResponse(true,"delete product do not  success");
+					response($ojb);
+				}
 				$resData = $this->productModel->deleteById($id);
 				if($resData){
 					$ojb =ojbResponse(true,"delete product success");
@@ -119,6 +124,10 @@ class productController extends CI_Controller {
 		try{
 		if(isset($_POST)){
 			extract($data_request);
+			if(!$product){
+				$ojb =ojbResponse(true,"update product do not  success");
+				response($ojb);
+			}
 			$res =  productValidate($data_request);
 		    if(!$res->success){
 				response($res);

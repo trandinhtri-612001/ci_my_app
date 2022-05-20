@@ -168,24 +168,24 @@ $stt = 1;
    
    btn_delete.forEach((item, index)=>{
 item.addEventListener("click",()=>{
-    console.log(input_id[index].value)
+    
    let ojb ={
        id:input_id[index].value,
    };
    
     $.post(`<?=base_url()?>/userController/deleteUser`,ojb,
   function(data, status){
-      console.log(data)
+     
       const resData = JSON.parse(data)
   if(resData.success){
-      console.log(resData)
+     
       alert(resData.messages);
     const url ="<?= base_url()?>userController/viewUser";
            $(location).attr('href',url);
         
    
   }else{
-    console.log(resData)
+    
     alert(resData.messages);
   }
   });

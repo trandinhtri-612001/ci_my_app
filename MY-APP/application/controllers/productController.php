@@ -26,7 +26,6 @@ class productController extends CI_Controller {
 	}
 	public function viewProduct()
 	{
-	
 		try{
 			if(isset($_GET)){
 				$data['info']= $this->productModel->getProduct()->result_array();
@@ -35,7 +34,6 @@ class productController extends CI_Controller {
 			}catch(Exception $err){
 				$ojb =ojbResponse(false,$err->getMessage());
 				response($ojb);
-		
 			   }
 
         
@@ -48,18 +46,14 @@ class productController extends CI_Controller {
 		}catch(Exception $err){
 			$ojb =ojbResponse(false,$err->getMessage());
 			response($ojb);
-	
 		   }
 		
 	}
 
 	public function addProduct(){
-      
 	   $data_request = $_POST;
-	   
 	   try{
 		    if(isset($_POST)){
-		
 		  $res =  productValidate($data_request);
 		    if(!$res->success){
 		  response($res);
@@ -79,15 +73,12 @@ class productController extends CI_Controller {
 	   }catch(Exception $err){
 		$ojb =ojbResponse(false,$err->getMessage());
 		response($ojb);
-
 	   }
 	 
 	  
 	  
     }
 	public function updateProduct($id){		
-	
-		
 		try{
 			if(isset($_GET)){
 				$data['info'] = $this->productModel->getById($id)->result_array();
@@ -96,22 +87,18 @@ class productController extends CI_Controller {
 			}catch(Exception $err){
 				$ojb =ojbResponse(false,$err->getMessage());
 				response($ojb);
-		
 			   }
 	}
 
 	public function deleteProduct(){
 	
-		
 		try{
 			if(isset($_POST)){
 				extract($_POST);
 				$resData = $this->productModel->deleteById($id);
 				if($resData){
-			
 					$ojb =ojbResponse(true,"delete product success");
 					response($ojb);
-					
 				 }else{
 					$ojb =ojbResponse(false,"delete product do not  success");
 					response($ojb);

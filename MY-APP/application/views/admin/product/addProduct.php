@@ -163,17 +163,17 @@
                 $.post('<?=base_url()?>/productController/addProduct',
                 dataOjb,
                 function(data, status){
-                console.log(data)
+               
                 const resData = JSON.parse(data)
                 if(resData.success){
-                console.log(resData)
+              
                 alert(resData.messages);
                 const url ="<?= base_url()?>productController/viewProduct";
                 $(location).attr('href',url);
 
 
                 }else{
-                console.log(resData)
+                
                 alert(resData.messages);
                 }
                 });

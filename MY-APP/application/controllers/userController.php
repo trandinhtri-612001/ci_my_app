@@ -23,6 +23,7 @@ class userController extends CI_Controller {
 		$this->load->model('userModel');
 		$this->load->helper('user_helper');
 		$this->load->helper('response_helper');
+		$this->load->helper('redis_helper');
 
 	}
 	public function viewUser()
@@ -59,6 +60,7 @@ class userController extends CI_Controller {
         }else{
 	   $ojb =array('username'=>$username,'email'=>$email,'phone'=>$phone,'date'=>$date,'password'=>$password);
 	 $resData =  $this->userModel->addUser($ojb);
+	 redisSetService($ojb);
 	 if($resData){
 		
 		$ojb =ojbResponse(true,"add user success");
@@ -89,6 +91,7 @@ class userController extends CI_Controller {
 			extract($data_request);
 			
 		$resData = $this->userModel->deleteById($id);
+		redisDelservice($data_request);
 		if($resData){
 		
 			$ojb =ojbResponse(true,"delete user success");
@@ -112,6 +115,7 @@ class userController extends CI_Controller {
             }else{
            $ojb =array('username'=>$username,'email'=>$email,'phone'=>$phone,'date'=>$date,'password'=>$password);
           $resData = $this->userModel->updateById($id,$ojb);
+		  redisSetService($ojb);
 		  if($resData){
 			$ojb =ojbResponse(true,"update  user success");
 			response($ojb);

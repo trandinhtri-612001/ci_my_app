@@ -7,8 +7,8 @@ class productModel extends CI_Model
 	}
     public function addproduct($data)
     {
- $resData =  $this->db->insert('product',$data);
-return $resData;
+            $resData =  $this->db->insert('product',$data);
+            return $resData;
         
     }
     public function getProduct(){

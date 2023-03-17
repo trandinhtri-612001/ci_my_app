@@ -180,19 +180,19 @@
                         $.post('<?=base_url()?>/userController/updateUserById',
                         dataOjb,
                         function(data, status){
-                       
-                        const resData = JSON.parse(data)
-                        if(resData.success){
+                       console.log(dataOjb);
+                        // const resData = JSON.parse(data)
+                        // if(resData.success){
                         
-                        alert(resData.messages);
-                        const url ="<?= base_url()?>userController/viewUser";
-                            $(location).attr('href',url);
+                        // alert(resData.messages);
+                        // const url ="<?= base_url()?>userController/viewUser";
+                        //     $(location).attr('href',url);
                             
 
-                        }else{
+                        // }else{
                       
-                        alert(resData.messages);
-                        }
+                        // alert(resData.messages);
+                        // }
                         });
                         });
                         

@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ 
 class productController extends CI_Controller {
-
+        public $productModel;
 	/**
 	 * Index Page for this controller.
 	 *
@@ -20,10 +20,12 @@ class productController extends CI_Controller {
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->load->model('productModel');
+	    $this->load->model('productModel');
 		$this->load->helper('product_helper');
 		$this->load->helper('response_helper');
 	}
+
+
 	public function viewProduct()
 	{
 		try{
@@ -51,12 +53,13 @@ class productController extends CI_Controller {
 	}
 
 	public function addProduct(){
+		
 	   $data_request = $_POST;
 	   try{
 		    if(isset($_POST)){
 		  $res =  productValidate($data_request);
 		    if(!$res->success){
-		  response($res);
+		 	 response($res);
 	   }else{
 		extract($data_request);
 	  $ojb =array('name'=>$name,'category'=>$category,'countInStock'=>$countInStock,'price'=>$price,'image'=>$image);
@@ -65,7 +68,7 @@ class productController extends CI_Controller {
 		$ojb =ojbResponse(true,"add product success");
 		response($ojb);
 	 }else{
-		$ojb =ojbResponse(false,"add product do not  success");
+		$ojb = ojbResponse(false,"add product do not  success");
 		response($ojb);
 	 }
 	  }

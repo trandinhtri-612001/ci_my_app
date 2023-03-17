@@ -147,16 +147,11 @@ $stt = 1;
       <td><?php echo $value['countInStock']   ?></td>
       <td><?php echo $value['price']   ?></td>
       <td><?php echo $value['image']   ?></td>
-      
       <td><a href="#" class="btn_delete">delete</a></td>
       <td><a href="updateProduct/<?php echo $value['id']?>">update</a></td>
     </tr>
 
       <?php endforeach ?>
-
-
-    
-   
   </tbody>
 </table>
                 </div>
@@ -164,8 +159,8 @@ $stt = 1;
         </div>
     </section>
                 <script>
-                            let btn_delete = document.querySelectorAll(".btn_delete");
-                            let input_id = document.querySelectorAll(".input_delete");
+                    let btn_delete = document.querySelectorAll(".btn_delete");
+                    let input_id = document.querySelectorAll(".input_delete");
                       
                         btn_delete.forEach((item, index)=>{
                         item.addEventListener("click",()=>{

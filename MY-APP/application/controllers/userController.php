@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class userController extends CI_Controller {
-
+  public $userModel;
 	/**
 	 * Index Page for this controller.
 	 *
@@ -24,6 +24,12 @@ class userController extends CI_Controller {
 		$this->load->helper('user_helper');
 		$this->load->helper('response_helper');
 		$this->load->helper('redis_helper');
+
+	}
+	public function index()
+	{
+		echo "kushdfkjsdhfksdj";
+	//    print_r($this->userModel->getuser()->result_array());
 
 	}
 	public function viewUser()

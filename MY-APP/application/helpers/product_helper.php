@@ -12,9 +12,9 @@ if (!function_exists('productValidate'))
         
 
         if(empty($name) ||empty($category) || empty($countInStock)  || empty( $price) ||empty($image)){
-$anou->success = false;
-$anou->messages ="missing infomation";
-return $anou;
+            $anou->success = false;
+            $anou->messages ="missing infomation";
+            return $anou;
 
     }else{
         if(preg_match($checkProductName,$name)){

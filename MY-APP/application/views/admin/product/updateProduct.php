@@ -178,10 +178,8 @@ const ip = document.querySelectorAll("input");
                 $.post('<?=base_url()?>/productController/updateProductById',
                 dataOjb,
                 function(data, status){
-               
-                const resData = JSON.parse(data)
+               const resData = JSON.parse(data)
                 if(resData.success){
-               
                 alert(resData.messages);
                 const url ="<?= base_url()?>productController/viewProduct";
                 $(location).attr('href',url);
